@@ -11,7 +11,7 @@ The project requires ``biopython``, which can be installed using the following c
 pip install biopython
 ```
 
-To run text the project on your computer it is sufficient to clone the repository:
+To run the project on your computer it is sufficient to clone the repository:
 ```
 git clone https://github.com/a1eska/BioToolbox.git
 ```
