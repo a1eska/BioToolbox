@@ -1,5 +1,3 @@
-import fasta_parser
-
 class HammingError(Exception):
     pass
 
@@ -16,6 +14,13 @@ def hd(bio_seq_a, bio_seq_b):
         return dist
 
 if __name__ == "__main__":
-    parser = fasta_parser.ParserFASTA("ls_orchid.fasta")
-    print(hd(parser.seq(1), parser.seq(1)))
+    print("Insert two strings...")
+    print("String x")
+    x = input()
+    print("String y")
+    y = input()
     
+    try:
+        print("The hamming distance of x and y is {}.".format(hd(x,y)))
+    except HammingError:
+        print("The input sequences are not of the same length")

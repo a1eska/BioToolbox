@@ -67,8 +67,15 @@ class EditDistance:
 
         
 if __name__ == "__main__":
-    ed = EditDistance("sunday", "saturday")
-    print(ed.dist())
+    print("Insert two strings...")
+    print("String x")
+    x = input()
+    print("String y")
+    y = input()
+    ed = EditDistance(x, y)
+    print("The edit distance of x and y is {}.".format(ed.dist()))
+    print("Alignment:")
     a = ed.align()
     print(a[0])
     print(a[1])
+    

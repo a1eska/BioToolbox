@@ -1,8 +1,10 @@
+import argparse
 from Bio import SeqIO
 
 class ParserFASTA:
     def __init__(self, filename):
         self.fasta_sequences = list(SeqIO.parse(filename, "fasta"))
+        self.ns = len(self.fasta_sequences)
     
     # Returns string containing the description of the k-th molecule in the file
     def descr(self, k):
@@ -22,9 +24,22 @@ class ParserFASTA:
 
 
 if __name__ == "__main__":
-    fasta_parser = ParserFASTA("ls_orchid.fasta")
-    print(fasta_parser.descr(1))
-    print(fasta_parser.seq(1))
-    print(fasta_parser.len(1))
-    print(fasta_parser.subseq(1, 20, 30))
+    ap = argparse.ArgumentParser()
+    ap.add_argument("path", help="Path to a fasta file.")
+    ap.add_argument("-s", "--sequence", type=int, default=1, help="prints information about a sequence")
+    
+    args = ap.parse_args()
+    
+    try:
+        fasta_parser = ParserFASTA(args.path)
+        if args.sequence:
+            k = args.sequence
+            print("Description: {}".format(fasta_parser.descr(k)))
+            print("Length: {}".format(fasta_parser.len(k)))
+            print("Sequence:")
+            print(fasta_parser.seq(k))
+    except FileNotFoundError:
+        print("File '{}' could not be opened.".format(args.path))
+    except IndexError:
+        print("There are only {} sequences".format(fasta_parser.ns))
     

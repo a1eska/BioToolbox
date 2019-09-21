@@ -1,8 +1,6 @@
+import argparse
 from Bio import AlignIO
 from Bio.SubsMat import MatrixInfo
-
-class UnknownMatrix(Exception):
-    pass
 
 class ParserCLUSTAL:
     def __init__(self, filename):
@@ -38,18 +36,24 @@ class ParserCLUSTAL:
         
         return score
         
-    def get_scores(self, gep, matrix):
+    def get_scores(self, gap, matrix):
         scores = []
         
         for i in range(len(self.get_seq(0))):
-            scores.append(sp_col(i, gap, matrix))
+            scores.append(self.sp_col(i, gap, matrix))
         
         return scores
 
 if __name__ == "__main__":
-    parser = ParserCLUSTAL("p53_mafft_clustal.txt")
-    print(parser.get_seq(0))
-    print(parser.get_column(0))
-    print(parser.sp_col(0, -4, MatrixInfo.blosum62))
-    print(parser.sp_msa(-4, MatrixInfo.blosum62))
+    ap = argparse.ArgumentParser()
+    ap.add_argument("path", help="Path to a clustal file.")
     
+    args = ap.parse_args()
+    
+    try:
+        clustal_parser = ParserCLUSTAL(args.path)
+        print("Sum of pairs: {}.".format(clustal_parser.sp_msa(-4, MatrixInfo.blosum62)))
+        print("List of conservation-like scores of positions:")
+        print(clustal_parser.get_scores(-4, MatrixInfo.blosum62))
+    except FileNotFoundError:
+        print("File '{}' could not be opened.".format(args.path))

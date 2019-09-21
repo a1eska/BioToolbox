@@ -1,29 +1,31 @@
-# Bioinformatics Toolbox
+# Bioinformatics toolbox
 
-Solution of assignments from [Bioinformatics toolbox](http://bioinformatika.mff.cuni.cz/repository/#/stories/detail?id=bioinformatics_toolbox).
+This project contains solutions to excercises for a course on bioinformatics algorithms at the Faculty of Mathematics and Physics at Charles University.
+It implements several basic methods from the field of sequence and structural bioinformatics such as parsing files or assesing similarity of sequences and structures.
 
-## Processing FASTA files
 
-Implemented in `fasta_parser.py`.
+## Instalation
 
-## Measuring sequance similarity using Hamming distance
+The project requires ``biopython``, which can be installed using the following command:
+```
+pip install biopython
+```
 
-Implemented in `hamming_distance.py`.
+To run text the project on your computer it is sufficient to clone the repository:
+```
+git clone https://github.com/a1eska/BioToolbox.git
+```
 
-## Sequence alignment using edit distance
+## Implemented classes and methods
 
-Implemented in `edit_distance.py`.
+The project implements wrapping classes of parsers for PDB files, FASTA files, and CLUSTAL files.
+It also implements function for counting Hamming distance and edit distance of two strings.
+The correspoding source files are named accordingly.
 
-## Processing PDB files
+The test files for the parsers are provied in the directory ``test_data``.
+Every file can be run with several arguments for which the information is provided by using the argument ``--help``.
 
-Implemented in `pdb_parser.py`.
-
-## Processing multiple sequence alignment
-
-Implemented in `clustal_parser.py`.
-
-## Conservation determination for multiple aligned sequences
-
-Implemented in `clustal_parser.py` as function `get_scores`.
-
-## Computing structure-related properties
+For example the following can be used to print some information about the 10-th sequence in the FASTA file ``ls_orchid.fasta``:
+```
+python fasta_parser.py test_data/ls_orchid.fasta -s 10
+```
